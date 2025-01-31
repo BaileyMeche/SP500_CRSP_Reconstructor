@@ -43,7 +43,18 @@ def calculate_sp500_total_market_cap(
 
     # Calculate for each month-end date
     for i, date in enumerate(dates):
-        ## YOUR CODE HERE
+        # Select stocks that were part of the S&P 500 on this date
+        sp500_stocks = df_constituents[
+            (df_constituents["mbrstartdt"] <= date) & 
+            ((df_constituents["mbrenddt"].isna()) | (df_constituents["mbrenddt"] >= date))
+        ]["permno"].unique()
+
+        # Filter df_msf for those stocks
+        df_filtered = df_msf[(df_msf["date"] == date) & (df_msf["permno"].isin(sp500_stocks))]
+
+        # Compute total market cap and number of constituents
+        sp500_market_cap[i] = df_filtered["market_cap"].sum()
+        n_constituents[i] = len(df_filtered)
 
     # Create DataFrame from arrays
     results_df = pd.DataFrame(
@@ -90,7 +101,12 @@ def append_actual_sp500_index_and_approx_returns_A(
     )
 
     # Create normalized market cap series
-    ## YOUR CODE HERE
+    # Normalize market cap series
+    first_spindx = sp500_total_market_cap["spindx"].iloc[0]
+    first_market_cap = sp500_total_market_cap["sp500_market_cap"].iloc[0]
+    sp500_total_market_cap["sp500_market_cap_norm"] = (
+        sp500_total_market_cap["sp500_market_cap"] * first_spindx / first_market_cap
+    )
 
     # Calculate simple returns from market cap changes
     sp500_total_market_cap["ret_approx_A"] = sp500_total_market_cap[
@@ -104,7 +120,6 @@ def append_actual_sp500_index_and_approx_returns_A(
     sp500_total_market_cap["sp500_cumret"] = (
         1 + sp500_total_market_cap["sprtrn"]
     ).cumprod()
-
 
     return sp500_total_market_cap
 
@@ -151,7 +166,23 @@ def calculate_sp500_returns_with_rebalancing(
 
     # Calculate weights for each date
     for i, date in enumerate(dates):
-        ## YOUR CODE HERE
+        active_constituents = df_constituents[
+            (df_constituents["mbrstartdt"] <= date) & (df_constituents["mbrenddt"] >= date)
+        ]
+        monthly_market_cap = df_msf[(df_msf["date"] == date) & (df_msf["permno"].isin(active_constituents["permno"].values))]
+        
+        # Drop NaN values to avoid incorrect sums
+        monthly_market_cap = monthly_market_cap.dropna(subset=["market_cap"])
+        total_market_cap = monthly_market_cap["market_cap"].sum()
+        
+        if total_market_cap > 0:
+            weights = monthly_market_cap["market_cap"] / total_market_cap
+            sp500_weights.loc[date, monthly_market_cap["permno"]] = weights.values
+            
+            # Normalize weights within loop to sum to 1
+            weight_sum = sp500_weights.loc[date].sum()
+            if weight_sum > 0:
+                sp500_weights.loc[date] /= weight_sum
 
     # # Verify the weights sum to approximately 1 for each date
     weight_sums = sp500_weights.sum(axis=1)

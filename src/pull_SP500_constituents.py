@@ -10,9 +10,12 @@ WRDS_USERNAME = config("WRDS_USERNAME")
 def pull_constituents(wrds_username=WRDS_USERNAME):
     db = wrds.Connection(wrds_username=wrds_username)
 
-    df_constituents = db.raw_sql(""" 
-    ## YOUR CODE HERE
-    from crsp_m_indexes.dsp500list_v2 
+    df_constituents = db.raw_sql("""
+        SELECT 
+            permno, 
+            start AS mbrstartdt, 
+            ending AS mbrenddt
+        FROM crsp.msp500list
     """)
 
     # Convert string columns to datetime if they aren't already
