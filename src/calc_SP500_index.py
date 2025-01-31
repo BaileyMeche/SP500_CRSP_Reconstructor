@@ -2,7 +2,6 @@ import numpy as np
 import pandas as pd
 import seaborn as sns
 from matplotlib import pyplot as plt
-
 import pull_CRSP_stock
 import pull_SP500_constituents
 from settings import config
@@ -169,7 +168,8 @@ def calculate_sp500_returns_with_rebalancing(
         active_constituents = df_constituents[
             (df_constituents["mbrstartdt"] <= date) & (df_constituents["mbrenddt"] >= date)
         ]
-        monthly_market_cap = df_msf[(df_msf["date"] == date) & (df_msf["permno"].isin(active_constituents["permno"].values))]
+        monthly_market_cap = df_msf[(df_msf["date"] == date) & 
+                    (df_msf["permno"].isin(active_constituents["permno"].values))]
         
         # Drop NaN values to avoid incorrect sums
         monthly_market_cap = monthly_market_cap.dropna(subset=["market_cap"])
