@@ -17,7 +17,6 @@ def calc_equal_weighted_index(df):
     Calculate equal weighted index (just the average of all stocks)
     Note that ret is raw and retx is adjusted for dividends.
     """
-    ## YOUR CODE HERE
     # Group by date and compute the average returns and count the number of securities.
     df_eq_idx = df.groupby("date").agg({
         "ret": "mean",
@@ -59,7 +58,6 @@ def calc_CRSP_value_weighted_index(df, freq="MS"):
         lags=1,
         freq=freq,
     )
-    ## YOUR CODE HERE
     # Group by date and compute the weighted average returns using the lagged market cap.
     grouped = _df.groupby("date")
     ret = grouped.apply(lambda g: np.sum(g["ret"] * g["L1_mktcap"]) / np.sum(g["L1_mktcap"]))
