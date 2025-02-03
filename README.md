@@ -1,4 +1,4 @@
-Fama French Case Study
+Reconstructing Market Indices
 ======================
 
 
