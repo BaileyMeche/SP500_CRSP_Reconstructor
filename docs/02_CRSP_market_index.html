@@ -14605,6 +14605,9 @@ The value-Weighted Returns index represents a stock market index that calculates
 <span class="kn">import</span> <span class="nn">pull_CRSP_stock</span>
 <span class="kn">import</span> <span class="nn">calc_CRSP_indices</span>
 <span class="kn">import</span> <span class="nn">misc_tools</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">"ignore"</span><span class="p">)</span>
+
 
 <span class="n">DATA_DIR</span> <span class="o">=</span> <span class="n">config</span><span class="p">(</span><span class="s2">"DATA_DIR"</span><span class="p">)</span>
 </pre></div>
@@ -14952,21 +14955,6 @@ $$</p>
 
 
 <div class="jp-OutputArea jp-Cell-outputArea">
-
-<div class="jp-OutputArea-child">
-
-    
-    <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-
-
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr">
-<pre>C:\Users\baile\Box Sync\gelber_project\datascience\src\calc_CRSP_indices.py:63: RuntimeWarning: invalid value encountered in scalar divide
-  ret = grouped.apply(lambda g: np.sum(g[&#34;ret&#34;] * g[&#34;L1_mktcap&#34;]) / np.sum(g[&#34;L1_mktcap&#34;]))
-C:\Users\baile\Box Sync\gelber_project\datascience\src\calc_CRSP_indices.py:64: RuntimeWarning: invalid value encountered in scalar divide
-  retx = grouped.apply(lambda g: np.sum(g[&#34;retx&#34;] * g[&#34;L1_mktcap&#34;]) / np.sum(g[&#34;L1_mktcap&#34;]))
-</pre>
-</div>
-</div>
 
 <div class="jp-OutputArea-child">
 

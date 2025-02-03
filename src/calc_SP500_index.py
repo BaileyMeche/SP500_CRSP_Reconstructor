@@ -11,7 +11,6 @@ DATA_DIR = config("DATA_DIR")
 START_DATE = pd.to_datetime("1990-01-31")
 END_DATE = pd.to_datetime("2022-12-30")
 
-# -----------------------------------------------------------------------------
 # VERIFY: Monkey-patch load_constituents so that required columns exist.
 _required_constituent_columns = {"indno", "mbrflg", "indfam"}
 _original_load_constituents = pull_SP500_constituents.load_constituents
@@ -24,7 +23,6 @@ def _fixed_load_constituents(*args, **kwargs):
     return df
 
 pull_SP500_constituents.load_constituents = _fixed_load_constituents
-# -----------------------------------------------------------------------------
 
 def calculate_sp500_total_market_cap(df_constituents, df_msf, start_date=START_DATE, end_date=END_DATE):
     """
