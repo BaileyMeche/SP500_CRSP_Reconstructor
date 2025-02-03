@@ -4,18 +4,23 @@ Fama French Case Study
 
 ## About this project
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+1. Problem Definition – This project focused on reconstructing financial indices, particularly the CRSP market return indices and the S&P 500 index, to enhance understanding of index construction and investment benchmarking. The goal was to approximate these indices using historical market data and assess the accuracy of the approximations compared to official indices. This problem is significant because market indices serve as benchmarks for portfolio performance, investment decision-making, and financial research.
+
+2. Data Acquisition and Preparation – The data was sourced from the CRSP database, which includes monthly stock-level price, return, and shares outstanding data, as well as historical index information. The data was preprocessed by filtering for relevant securities, handling missing values, and computing adjusted market capitalizations to account for corporate actions such as stock splits. Additionally, constituent membership data was merged to track historical changes in index composition.
+
+3. Modeling and Methodology – Two methodologies were implemented for index reconstruction: (a) a direct market capitalization sum approach and (b) a portfolio simulation with quarterly rebalancing. The first method approximated the index level by summing the market capitalization of all constituents, while the second method simulated a tradable portfolio that rebalances based on the index's weightings. The second method more accurately reflected the real-world trading dynamics of the S&P 500.
+
+4. Evaluation – The reconstructed indices were evaluated by comparing return correlations and cumulative return differences with official indices. The portfolio rebalancing method demonstrated a near-perfect correlation (0.999) with the actual S&P 500 returns, significantly outperforming the market capitalization sum method. These findings emphasized the importance of proper rebalancing when modeling market indices.
+
+5. Iteration and Learning – Challenges included imperfect data matches due to missing proprietary index criteria and the need to adjust methodologies for corporate actions. By iterating through different weighting strategies and refining data handling techniques, the project improved its accuracy in approximating index returns. These iterations reinforced the importance of understanding both theoretical index construction and practical financial data limitations.
+
+6. Insights and Future Improvements – Improvements on this project could explore alternative weighting strategies like equal-weight and fundamentally weighted indices to enhance diversification and better reflect intrinsic company value. Additionally, advancements in real-time tracking, such as optimized Sequential Monte Carlo methods and reinforcement learning approaches, can improve index tracking accuracy while minimizing transaction costs.
 
 ## Quick Start
 
-To quickest way to run code in this repo is to use the following steps. First, you must have the `conda`  
-package manager installed (e.g., via Anaconda). However, I recommend using `mamba`, via [miniforge]
-(https://github.com/conda-forge/miniforge) as it is faster and more lightweight than `conda`. Second, you 
-must have TexLive (or another LaTeX distribution) installed on your computer and available in your path.
-You can do this by downloading and 
-installing it from here ([windows](https://tug.org/texlive/windows.html#install) 
-and [mac](https://tug.org/mactex/mactex-download.html) installers).
-Having done these things, open a terminal and navigate to the root directory of the project and create a 
+This project requires `conda`  or `mamba`, via [miniforge]
+(https://github.com/conda-forge/miniforge) and [TexLive](https://tug.org/texlive/windows.html#install).
+Open a terminal, navigate to the root directory of the project, and create a 
 conda environment using the following command:
 ```
 conda create -n blank python=3.12
@@ -25,11 +30,10 @@ and then install the dependencies with pip
 ```
 pip install -r requirements.txt
 ```
-Finally, you can then run 
+Finally, run
 ```
 doit
 ```
-And that's it!
 
 If you would also like to run the R code included in this project, you can either install
 R and the required packages manually, or you can use the included `environment.yml` file.
@@ -112,16 +116,6 @@ Output is stored in the "_output" directory. This includes dataframes, charts, a
 rendered notebooks. When the output is small enough, I'll keep this under
 version control. I like this because I can keep track of how dataframes change as my
 analysis progresses, for example.
-
-Of course, the _data directory and _output directory can be kept elsewhere on the
-machine. To make this easy, I always include the ability to customize these
-locations by defining the path to these directories in environment variables,
-which I intend to be defined in the `.env` file, though they can also simply be
-defined on the command line or elsewhere. The `settings.py` is reponsible for
-loading these environment variables and doing some like preprocessing on them.
-The `settings.py` file is the entry point for all other scripts to these
-definitions. That is, all code that references these variables and others are
-loading by importing `config`.
 
 ### Naming Conventions
 
