@@ -7517,7 +7517,34 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h1 id="Example-Project-Using-the-ChartBook-Template">Example Project Using the ChartBook Template<a class="anchor-link" href="#Example-Project-Using-the-ChartBook-Template">¶</a></h1><h2 id="About-this-project">About this project<a class="anchor-link" href="#About-this-project">¶</a></h2><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <h1>Reconstructing Market Indices</h1>
+
+  <h2>About this project</h2>
+
+  <ol>
+      <li>
+          <strong>Problem Definition</strong> – This project focused on reconstructing financial indices, particularly the CRSP market return indices and the S&P 500 index, to enhance understanding of index construction and investment benchmarking. The goal was to approximate these indices using historical market data and assess the accuracy of the approximations compared to official indices. This problem is significant because market indices serve as benchmarks for portfolio performance, investment decision-making, and financial research.
+      </li>
+      <li>
+          <strong>Data Acquisition and Preparation</strong> – The data was sourced from the CRSP database, which includes monthly stock-level price, return, and shares outstanding data, as well as historical index information. The data was preprocessed by filtering for relevant securities, handling missing values, and computing adjusted market capitalizations to account for corporate actions such as stock splits. Additionally, constituent membership data was merged to track historical changes in index composition.
+      </li>
+      <li>
+          <strong>Modeling and Methodology</strong> – Two methodologies were implemented for index reconstruction:
+          <ul>
+              <li><strong>Market Capitalization Sum Approach:</strong> Approximated the index level by summing the market capitalization of all constituents.</li>
+              <li><strong>Portfolio Simulation with Quarterly Rebalancing:</strong> Simulated a tradable portfolio that rebalances based on the index's weightings. This method more accurately reflected real-world trading dynamics of the S&P 500.</li>
+          </ul>
+      </li>
+      <li>
+          <strong>Evaluation</strong> – The reconstructed indices were evaluated by comparing return correlations and cumulative return differences with official indices. The portfolio rebalancing method demonstrated a near-perfect correlation (0.999) with the actual S&P 500 returns, significantly outperforming the market capitalization sum method. These findings emphasized the importance of proper rebalancing when modeling market indices.
+      </li>
+      <li>
+          <strong>Iteration and Learning</strong> – Challenges included imperfect data matches due to missing proprietary index criteria and the need to adjust methodologies for corporate actions. By iterating through different weighting strategies and refining data handling techniques, the project improved its accuracy in approximating index returns. These iterations reinforced the importance of understanding both theoretical index construction and practical financial data limitations.
+      </li>
+      <li>
+          <strong>Insights and Future Improvements</strong> – Improvements on this project could explore alternative weighting strategies like equal-weight and fundamentally weighted indices to enhance diversification and better reflect intrinsic company value. Additionally, advancements in real-time tracking, such as optimized Sequential Monte Carlo methods and reinforcement learning approaches, can improve index tracking accuracy while minimizing transaction costs.
+      </li>
+  </ol>
 <h2 id="Check-out-these-notebooks">Check out these notebooks<a class="anchor-link" href="#Check-out-these-notebooks">¶</a></h2><ul>
 <li><a href="./01_wrds_python_package.html">01_example_notebook_interactive.ipynb</a></li>
 <li><a href="./02_CRSP_market_index.html">02_example_with_dependencies.ipynb</a></li>
